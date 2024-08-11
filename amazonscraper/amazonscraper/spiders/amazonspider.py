@@ -6,7 +6,7 @@ class AmazonspiderSpider(scrapy.Spider):
 
     name = "amazonspider"
     allowed_domains = ["amazon.com", "scrapeops.io"]
-    commen_url = "https://proxy.scrapeops.io/v1/?api_key=04ef2cba-b837-4d5b-a38a-824b975f63dc&url=https://www.amazon.com"
+    commen_url = "https://proxy.scrapeops.io/v1/?api_key=*******************&url=https://www.amazon.com"
     commen_url_direct = "https://www.amazon.com"
     page = 1
 
