@@ -15,3 +15,6 @@ env/
 # Test results
 *.log
 test-results/
+
+#.env varables
+/.env*
