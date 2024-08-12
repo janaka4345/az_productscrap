@@ -1,19 +1,17 @@
 import scrapy
-from amazonscraper.items import AmazonscraperItem
+from amazonscraper.amazonscraper.items import AmazonscraperItem
 
 
 class AmazonspiderSpider(scrapy.Spider):
 
     name = "amazonspider"
     allowed_domains = ["amazon.com", "scrapeops.io"]
-    commen_url = "https://proxy.scrapeops.io/v1/?api_key=*******************&url=https://www.amazon.com"
+    scrapeops_commen_url = "https://proxy.scrapeops.io/v1/?api_key=*******************&url=https://www.amazon.com"
     commen_url_direct = "https://www.amazon.com"
-    page = 1
 
     def __init__(self, keyword=None, *args, **kwargs):
         super(AmazonspiderSpider, self).__init__(*args, **kwargs)
         self.keyword = keyword
-        # self.start_urls = [f"https://www.amazon.com/s?k={self.keyword}"]
 
     def start_requests(self):
         amazon_search_url = f"{self.commen_url_direct}/s?k={self.keyword}"
@@ -23,7 +21,6 @@ class AmazonspiderSpider(scrapy.Spider):
         )
 
     def all_products_divs(self, response):
-        # all_products = response.xpath('//div[contains(@data-asin,"B")]//h2/a/@href').getall()
         all_products = response.xpath('//div[contains(@data-asin,"B")]')
         product_item = AmazonscraperItem()
         for product in all_products:
@@ -47,9 +44,6 @@ class AmazonspiderSpider(scrapy.Spider):
         ).get()
 
         if next_page is not None:
-            self.page += 1
-            next_page_url = (
-                f"{self.commen_url_direct}/s?k={self.keyword}&page={self.page}"
-            )
+            next_page_url = f"{self.commen_url_direct}{next_page}"
 
             yield response.follow(next_page_url, callback=self.all_products_divs)
