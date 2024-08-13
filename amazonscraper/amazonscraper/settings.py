@@ -6,11 +6,6 @@
 #     https://docs.scrapy.org/en/latest/topics/settings.html
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-
 BOT_NAME = "amazonscraper"
 
 SPIDER_MODULES = ["amazonscraper.spiders"]
@@ -57,6 +52,7 @@ ROBOTSTXT_OBEY = False
 DOWNLOADER_MIDDLEWARES = {
     #    "amazonscraper.middlewares.AmazonscraperDownloaderMiddleware": 543,
     "amazonscraper.middlewares.ScrapeOpsFakeBrowserHeadersMiddleware": 400,
+    "scrapeops_scrapy_proxy_sdk.scrapeops_scrapy_proxy_sdk.ScrapeOpsScrapyProxySdk": 725,
 }
 
 FEEDS = {
@@ -105,21 +101,7 @@ REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
 
+SCRAPEOPS_API_KEY = "87727293-f002-4fa7-baef-c997890f7b1b"
 
 SCRAPEOPS_FAKE_HEADERS_ENABLED = True
-
-
-# REQUEST_FINGERPRINTER_IMPLEMENTATION
-REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
-
-# TWISTED_REACTOR
-TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
-
-# FEED_EXPORT_ENCODING
-FEED_EXPORT_ENCODING = "utf-8"
-
-# SCRAPEOPS_API_KEY
-SCRAPEOPS_API_KEY = os.environ.get("SECRET_KEY")
-
-# SCRAPEOPS_FAKE_HEADERS_ENABLED
-SCRAPEOPS_FAKE_HEADERS_ENABLED = True
+SCRAPEOPS_PROXY_ENABLED = True
