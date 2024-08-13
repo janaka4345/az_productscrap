@@ -6,6 +6,10 @@
 #     https://docs.scrapy.org/en/latest/topics/settings.html
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 BOT_NAME = "amazonscraper"
 
@@ -55,6 +59,13 @@ DOWNLOADER_MIDDLEWARES = {
     "amazonscraper.middlewares.ScrapeOpsFakeBrowserHeadersMiddleware": 400,
 }
 
+FEEDS = {
+    "data_%(time)s.json": {
+        "format": "json",
+        "overwrite": False,
+    }
+}
+
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
 # EXTENSIONS = {
@@ -63,9 +74,10 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#    "amazonscraper.pipelines.AmazonscraperPipeline": 300,
-# }
+ITEM_PIPELINES = {
+    #    "amazonscraper.pipelines.AmazonscraperPipeline": 300,
+    "amazonscraper.pipelines.AmazonscraperDataCleanPipeline": 300
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -94,4 +106,20 @@ TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
 
 
+SCRAPEOPS_FAKE_HEADERS_ENABLED = True
+
+
+# REQUEST_FINGERPRINTER_IMPLEMENTATION
+REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
+
+# TWISTED_REACTOR
+TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
+
+# FEED_EXPORT_ENCODING
+FEED_EXPORT_ENCODING = "utf-8"
+
+# SCRAPEOPS_API_KEY
+SCRAPEOPS_API_KEY = os.environ.get("SECRET_KEY")
+
+# SCRAPEOPS_FAKE_HEADERS_ENABLED
 SCRAPEOPS_FAKE_HEADERS_ENABLED = True
