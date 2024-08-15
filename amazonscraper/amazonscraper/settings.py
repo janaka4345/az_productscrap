@@ -56,7 +56,7 @@ DOWNLOADER_MIDDLEWARES = {
 }
 
 FEEDS = {
-    "data_%(time)s.json": {
+    "data_%(time)s_%(keyword)s_%(jobid)s_.json": {
         "format": "json",
         "overwrite": False,
     }

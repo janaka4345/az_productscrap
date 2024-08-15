@@ -9,9 +9,10 @@ class AmazonspiderSpider(scrapy.Spider):
     scrapeops_commen_url = "https://proxy.scrapeops.io/v1/?api_key=*******************&url=https://www.amazon.com"
     commen_url_direct = "https://www.amazon.com"
 
-    def __init__(self, keyword=None, *args, **kwargs):
+    def __init__(self, keyword=None, jobid=None, *args, **kwargs):
         super(AmazonspiderSpider, self).__init__(*args, **kwargs)
         self.keyword = keyword
+        self.jobid = jobid
 
     def start_requests(self):
         amazon_search_url = f"{self.commen_url_direct}/s?k={self.keyword}"
